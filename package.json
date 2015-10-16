@@ -1,6 +1,6 @@
 {
   "name": "api-helper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "Geoffrey Dhuyvetters <geoffrey.dhuyvetters@gmail.com> (http://landlocked.herokuapp.com/)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "es6-promise": "^3.0.2",
+    "whatwg-fetch": "^0.10.0"
+  }
 }
