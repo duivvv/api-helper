@@ -1,6 +1,6 @@
 import fetch from '../fetch';
 
-import createParams from '../create/createParams';
+import createParams from '../params/createParams';
 
 export default ({
   url,

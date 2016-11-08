@@ -2,26 +2,37 @@ import {pick} from 'lodash';
 
 import fetch from '../fetch';
 
-import createParams from '../create/createParams';
-import validatePayload from '../validation/validatePayload';
+import createParams from '../params/createParams';
+
+import isFullUpdate from '../validation/isFullUpdate';
+import ignoreOptionals from '../validation/ignoreOptionals';
+
+import BodyConversion from '../const/BodyConversion';
 
 export default ({
   url,
   fields = [],
   token = ``,
-  log = false
+  log = false,
+  conversion = BodyConversion.JSON,
+  indicator = `?`
 } = {}) => {
 
   return (payload = {}) => {
 
-    payload = pick(payload, fields);
+    const {id, _id} = payload;
 
-    validatePayload(payload, fields);
+    if (!id && !_id) throw new Error(`please provide an id or _id field`);
+
+    payload = pick(payload, ignoreOptionals(fields, {indicator}));
+
+    const method = isFullUpdate(payload, fields, {indicator}) ? `PUT` : `PATCH`;
 
     const params = createParams({
-      method: `PATCH`,
+      method,
       token,
-      payload
+      payload,
+      conversion,
     });
 
     return fetch(url, params, log);

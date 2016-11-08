@@ -3,8 +3,8 @@ import {pick} from 'lodash';
 import fetch from '../fetch';
 
 import validateSort from '../validation/validateSort';
-import createQueryString from '../create/createQueryString';
-import createParams from '../create/createParams';
+import createQueryString from '../url/createQueryString';
+import createParams from '../params/createParams';
 
 export default ({
   url,

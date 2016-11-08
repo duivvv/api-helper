@@ -3,11 +3,15 @@ import insert from './lib/methods/insert';
 import remove from './lib/methods/remove';
 import update from './lib/methods/update';
 
+import BodyConversion from './lib/const/BodyConversion';
+
 export default (route, {
   token,
   base,
   log = false,
-  fields
+  fields,
+  conversion = BodyConversion.JSON,
+  indicator = `?`
 } = {}) => {
 
   if (!base) throw new Error(`please set a base path (absolute URL)`);
@@ -20,7 +24,7 @@ export default (route, {
     get: get({
       url,
       fields: [
-        ...fields.get,
+        ...fields.query,
         `sort`, `per_page`, `page`,
         `_id`, `id`, `sort_by`
       ],
@@ -30,9 +34,11 @@ export default (route, {
 
     insert: insert({
       url,
-      fields: fields.insert,
+      fields: fields.payload,
       token,
-      log
+      log,
+      conversion,
+      indicator
     }),
 
     remove: remove({
@@ -43,9 +49,11 @@ export default (route, {
 
     update: update({
       url,
-      fields: fields.update,
+      fields: fields.payload,
       token,
-      log
+      log,
+      conversion,
+      indicator
     })
 
   };
