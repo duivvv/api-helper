@@ -12,4 +12,5 @@ const users = apiHelper(`users`, token, {
 //users.get({id: `581349e12c04774469694ef3`})
 //users.get()
 users.get({scope: `user`})
-  .then(d => console.log(d));
+  .then(d => console.log(d))
+  .catch(e => console.log(e));

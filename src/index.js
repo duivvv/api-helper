@@ -2,7 +2,9 @@ import fetch from 'isomorphic-fetch';
 import createQueryString from './lib/createQueryString';
 import cleanQueryObject from './lib/cleanQueryObject';
 import logRequest from './lib/logRequest';
+
 import validateSort from './lib/validation/validateSort';
+import checkStatus from './lib/validation/checkStatus';
 
 export default (route, token, {
   base,
@@ -26,19 +28,19 @@ export default (route, token, {
       query = cleanQueryObject(query, [...fields.select, ...bFields.select]);
       if (query.sort) validateSort(query.sort);
 
-      let pUrl;
+      let pUrl = url;
 
       if (query.id || query._id) {
         const {id, _id} = query;
         pUrl = `${url}/${id || _id}`;
       } else {
-        pUrl = createQueryString(query);
+        pUrl = `${url}${createQueryString(query)}`;
       }
 
       if (log) logRequest(`GET`, pUrl);
 
       return fetch(pUrl)
-        .then(r => r.json());
+        .then(checkStatus);
 
     }
 
