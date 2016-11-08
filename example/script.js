@@ -8,6 +8,7 @@ const users = apiHelper(`users`, {
 
   token,
   base: `http://localhost:3000/api`,
+  log: true,
 
   fields: {
     get: [`email`, `username`, `scope`],
@@ -19,8 +20,8 @@ const users = apiHelper(`users`, {
 
 //users.get({id: `581349e12c04774469694ef3`})
 //users.get()
-//users.insert({username: `test2`, email: `test2@test.be`, password: `okkkk`})
-//users.get({scope: `user`})
-users.remove(22)
+users.insert({username: `test4`, email: `test4@test.be`, password: `okkkk`})
+//users.get({sort: `desc`})
+//users.remove(22)
   .then(d => console.log(d))
-  .catch(e => console.log(e));
+  .catch(e => console.log(`error`, e));

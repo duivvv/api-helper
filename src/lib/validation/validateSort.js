@@ -1,7 +1,7 @@
-export default query => {
+export default sort => {
 
-  const sort = query.sort.toLowerCase();
-
+  sort = sort.toLowerCase();
+  
   if (sort !== `asc` && sort !== `desc`) {
     throw new Error(`sort should be asc or desc`);
   }
