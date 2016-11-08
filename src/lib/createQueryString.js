@@ -1,16 +1,7 @@
-import {omit} from 'lodash';
-
-export default (query = {}, {exclude = []} = {}) => {
-
-  query = omit(query, exclude);
+export default (query = {}) => {
 
   const nProps = Object.keys(query).length;
   if (nProps === 0) return ``;
-
-  if (query.id || query._id) {
-    const {id, _id} = query;
-    return `/${id || _id}`;
-  }
 
   let url = `?`;
   let i = 1;
