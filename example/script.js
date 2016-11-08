@@ -13,15 +13,16 @@ const users = apiHelper(`users`, {
   fields: {
     get: [`email`, `username`, `scope`],
     insert: [`email`, `username`, `password`],
-    update: [`email`, `username`, `password`, `isActive`]
+    update: [`email`, `username`, `password`]
   }
 
 });
 
 //users.get({id: `581349e12c04774469694ef3`})
 //users.get()
-users.insert({username: `test4`, email: `test4@test.be`, password: `okkkk`})
+//users.insert({username: `test4`, email: `test4@test.be`, password: `okkkk`})
 //users.get({sort: `desc`})
-//users.remove(22)
+users.remove(22, {hard: true})
+//users.update(`581349e12c04774469694ef3`, {username: `testen`})
   .then(d => console.log(d))
   .catch(e => console.log(`error`, e));

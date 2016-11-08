@@ -1,6 +1,7 @@
 import get from './lib/methods/get';
 import insert from './lib/methods/insert';
 import remove from './lib/methods/remove';
+import update from './lib/methods/update';
 
 export default (route, {
   token,
@@ -12,17 +13,17 @@ export default (route, {
   if (!base) throw new Error(`please set a base path (absolute URL)`);
   if (!route) throw new Error(`please provide a route (cfr. users, feedback,...)`);
 
-  const bFields = {
-    get: [`sort`, `per_page`, `page`, `_id`, `id`, `sort_by`]
-  };
-
   const url = `${base}/${route}`;
 
   return {
 
     get: get({
       url,
-      fields: [...fields.get, ...bFields.get],
+      fields: [
+        ...fields.get,
+        `sort`, `per_page`, `page`,
+        `_id`, `id`, `sort_by`
+      ],
       token,
       log
     }),
@@ -36,6 +37,13 @@ export default (route, {
 
     remove: remove({
       url,
+      token,
+      log
+    }),
+
+    update: update({
+      url,
+      fields: fields.update,
       token,
       log
     })

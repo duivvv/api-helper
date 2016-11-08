@@ -10,7 +10,7 @@ export default ({
   fields = [],
   token = ``,
   log = false
-}) => {
+} = {}) => {
 
   return (payload = {}) => {
 
@@ -19,7 +19,7 @@ export default ({
     validatePayload(payload, fields);
 
     const params = createParams({
-      method: `POST`,
+      method: `PATCH`,
       token,
       payload
     });

@@ -6,13 +6,12 @@ import validateSort from '../validation/validateSort';
 import createQueryString from '../create/createQueryString';
 import createParams from '../create/createParams';
 
-
 export default ({
   url,
-  fields,
-  token,
-  log
-}) => {
+  fields = [],
+  token = ``,
+  log = false
+} = {}) => {
 
   return (query = {}) => {
 
