@@ -6,7 +6,10 @@ import logRequest from './lib/logRequest';
 import validateSort from './lib/validation/validateSort';
 import checkStatus from './lib/validation/checkStatus';
 
-export default (route, token, {
+import createHeaders from './lib/createHeaders';
+
+export default (route, {
+  token,
   base,
   log = true,
   fields
@@ -39,7 +42,9 @@ export default (route, token, {
 
       if (log) logRequest(`GET`, pUrl);
 
-      return fetch(pUrl)
+      const headers = createHeaders(token);
+
+      return fetch(pUrl, {headers})
         .then(checkStatus);
 
     }
