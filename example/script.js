@@ -5,15 +5,22 @@ const token = () => {
 };
 
 const users = apiHelper(`users`, {
+
   token,
   base: `http://localhost:3000/api`,
+
   fields: {
-    select: [`email`, `username`, `scope`]
+    get: [`email`, `username`, `scope`],
+    insert: [`email`, `username`, `password`],
+    update: [`email`, `username`, `password`, `isActive`]
   }
+
 });
 
 //users.get({id: `581349e12c04774469694ef3`})
 //users.get()
-users.get({scope: `user`})
+//users.insert({username: `test2`, email: `test2@test.be`, password: `okkkk`})
+//users.get({scope: `user`})
+users.remove(22)
   .then(d => console.log(d))
   .catch(e => console.log(e));

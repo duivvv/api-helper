@@ -1,2 +1,2 @@
-export default (method, url) =>
-  console.log(method, url);
+export default (...args) =>
+  console.log(...args);
