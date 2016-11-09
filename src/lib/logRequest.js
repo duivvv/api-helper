@@ -1,2 +1,1 @@
-export default (...args) =>
-  console.log(...args);
+export default (...args) => console.log(...args);
