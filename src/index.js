@@ -3,6 +3,8 @@ import insert from './lib/methods/insert';
 import remove from './lib/methods/remove';
 import update from './lib/methods/update';
 
+import parseFields from './lib/parse/parseFields';
+
 import BodyConversion from './lib/const/BodyConversion';
 
 export default (route, {
@@ -16,6 +18,8 @@ export default (route, {
 
   if (!base) throw new Error(`please set a base path (absolute URL)`);
   if (!route) throw new Error(`please provide a route (cfr. users, feedback,...)`);
+
+  fields = parseFields(fields);
 
   const url = `${base}/${route}`;
 

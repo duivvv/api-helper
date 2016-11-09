@@ -1,4 +1,4 @@
-import ignoreOptionals from './ignoreOptionals';
+import ignoreOptionals from '../parse/ignoreOptionals';
 
 export default (payload, fields, {indicator}) => {
 

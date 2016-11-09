@@ -5,7 +5,8 @@ import fetch from '../fetch';
 import createParams from '../params/createParams';
 
 import isFullUpdate from '../validation/isFullUpdate';
-import ignoreOptionals from '../validation/ignoreOptionals';
+
+import ignoreOptionals from '../parse/ignoreOptionals';
 
 import BodyConversion from '../const/BodyConversion';
 

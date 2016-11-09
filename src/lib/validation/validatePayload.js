@@ -1,4 +1,4 @@
-import excludeOptionals from './excludeOptionals';
+import excludeOptionals from '../parse/excludeOptionals';
 
 export default (payload, fields, {indicator = `?`} = {}) => {
 

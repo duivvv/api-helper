@@ -1,6 +1,7 @@
+import BodyConversion from '../const/BodyConversion';
+
 import createHeaders from './createHeaders';
 import createBody from './createBody';
-import BodyConversion from '../const/BodyConversion';
 
 export default ({
   method = `GET`,
