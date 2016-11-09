@@ -10,4 +10,6 @@ export default (payload, fields, {indicator = `?`} = {}) => {
     }
   });
 
+  return true;
+
 };

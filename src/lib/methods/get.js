@@ -16,7 +16,12 @@ export default ({
   return (query = {}) => {
 
     query = pick(query, fields);
-    if (query.sort) validateSort(query.sort);
+    
+    if (query.sort) {
+      if (!validateSort(query.sort)) {
+        throw new Error(`sort should be 'asc' or 'desc'`);
+      }
+    }
 
     let pUrl;
 

@@ -29,8 +29,9 @@ export default (route, {
       url,
       fields: [
         ...fields.query,
-        `sort`, `per_page`, `page`,
-        `_id`, `id`, `sort_by`
+        ...fields._page,
+        ...fields._id,
+        ...fields._sort
       ],
       token,
       log

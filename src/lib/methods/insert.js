@@ -21,7 +21,10 @@ export default ({
   return (payload = {}) => {
 
     payload = pick(payload, ignoreOptionals(fields, {indicator}));
-    validatePayload(payload, fields, {indicator});
+
+    if (!validatePayload(payload, fields, {indicator})) {
+      throw new Error(`payload must contain ${JSON.stringify(fields)}`);
+    }
 
     const params = createParams({
       method: `POST`,

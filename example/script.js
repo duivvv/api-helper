@@ -14,9 +14,9 @@ const users = apiHelper(`users`, {
 
 });
 
-users.get({email: `test@test.com`})
+//users.get({email: `test@test.com`})
 //users.get()
-//users.insert({username: `test5`, email: `test5@test.be`, password: `okkkk`, isActive: false, scope: `ADMIN`})
+users.insert({username: `test5`, email: `test5@test.be`, password: `okkkk`, isActive: false, scope: `ADMIN`})
 //users.get({sort: `desc`})
 //users.remove(22, {hard: true})
 //users.update({id: `581349e12c04774469694ef3`, username: `testen`, email: `test@test.com`, password: `ok`, scope: `ADMIN`, isActive: true})
