@@ -23,12 +23,10 @@
     "src"
   ],
   "pre-commit": [
-    "build:cjs",
-    "test"
+    "build:cjs"
   ],
   "pre-push": [
-    "build:cjs",
-    "test"
+    "build:cjs"
   ],
   "scripts": {
     "test": "jest --coverage",
