@@ -11,9 +11,7 @@ const plugins = [
 
 const isProd = process.env.NODE_ENV === `production`;
 
-if (isProd) {
-  plugins.push(uglify());
-}
+if (isProd) plugins.push(uglify());
 
 export default {
   entry: `src/index.js`,
