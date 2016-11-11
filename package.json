@@ -2,30 +2,65 @@
   "name": "api-helper",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "cjs/index.js",
+  "browser": "dist/apiHelper.js",
+  "module": "es/index.js",
+  "jsxnext:main": "es/index.js",
+  "watch": {
+    "build:cjs": {
+      "patterns": [
+        "src",
+        "__tests__"
+      ],
+      "extensions": "js",
+      "quiet": true
+    }
+  },
+  "files": [
+    "dist",
+    "cjs",
+    "es",
+    "src"
+  ],
+  "pre-commit": [
+    "build:cjs",
+    "test"
+  ],
+  "pre-push": [
+    "build:cjs",
+    "test"
+  ],
   "scripts": {
     "test": "jest --coverage",
-    "prepublish": "npm run build",
-    "lint": "eslint src *.js",
-    "development": "npm run lint && rollup -c -w",
-    "build": "npm run lint && npm test && rollup -c"
+    "prepublish": "npm run lint && npm test && npm run build",
+    "lint": "eslint src/*.js",
+    "clean": "rimraf es dist",
+    "development": "npm-watch",
+    "build": "npm run build:cjs && npm run clean && npm run build:es && npm run build:umd",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:cjs": "rimraf cjs && cross-env BABEL_ENV=cjs babel src --out-dir cjs && npm run test",
+    "build:umd": "cross-env BABEL_ENV=es rollup -c && cross-env BABEL_ENV=es NODE_ENV=production rollup -c"
   },
   "keywords": [],
-  "author": "Geoffrey Dhuyvetters <geoffrey.dhuyvetters@gmail.com> (http://landlocked.herokuapp.com/)",
+  "author": "Geoffrey Dhuyvetters <geoffrey.dhuyvetters@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
-    "babel-eslint": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.16.0",
+    "cross-env": "^3.1.3",
     "eslint": "^3.7.1",
     "eslint-config-devine": "^1.5.0",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "^16.0.1",
+    "npm-watch": "^0.1.6",
+    "pre-commit": "^1.1.3",
+    "pre-push": "^0.1.1",
+    "rimraf": "^2.5.4",
     "rollup": "^0.36.1",
     "rollup-plugin-babel": "^2.6.1",
-    "rollup-watch": "^2.5.0"
-  },
-  "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.16.6"
+    "rollup-plugin-bundle-size": "^1.0.1",
+    "rollup-plugin-uglify": "^1.0.1"
   }
 }

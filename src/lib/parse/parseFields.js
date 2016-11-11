@@ -1,5 +1,6 @@
 import ignoreOptionals from './ignoreOptionals';
-import {isPlainObject} from 'lodash';
+
+import isPlainObject from '../util/isPlainObject';
 
 export default (fields, {indicator = `?`} = {}) => {
 

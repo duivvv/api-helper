@@ -1,9 +1,9 @@
-import fetch from 'isomorphic-fetch';
+//import fetch from 'isomorphic-fetch';
 
 import checkStatus from './validation/checkStatus';
 import logRequest from './logRequest';
 
-import {isEmpty} from 'lodash';
+import isEmpty from './util/isEmpty';
 
 export default (url, params, log) => {
 

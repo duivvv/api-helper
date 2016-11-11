@@ -1,4 +1,4 @@
-import {pick} from 'lodash';
+import pick from '../util/pick';
 
 import fetch from '../fetch';
 
@@ -16,7 +16,7 @@ export default ({
   return (query = {}) => {
 
     query = pick(query, fields);
-    
+
     if (query.sort) {
       if (!validateSort(query.sort)) {
         throw new Error(`sort should be 'asc' or 'desc'`);
