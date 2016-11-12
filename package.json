@@ -7,7 +7,7 @@
   "module": "es/index.js",
   "jsxnext:main": "es/index.js",
   "watch": {
-    "build:cjs": {
+    "hook": {
       "patterns": [
         "src",
         "__tests__"
@@ -23,21 +23,21 @@
     "src"
   ],
   "pre-commit": [
-    "build:cjs"
+    "hook"
   ],
   "pre-push": [
-    "build:cjs"
+    "hook"
   ],
   "scripts": {
-    "test": "jest --coverage",
-    "prepublish": "npm run lint && npm test && npm run build",
+    "hook": "npm run lint && npm run build:cjs && npm run test",
     "lint": "eslint src/*.js",
-    "clean": "rimraf es dist",
+    "test": "jest --coverage",
+    "prepublish": "npm run lint && npm run build",
     "development": "npm-watch",
-    "build": "npm run build:cjs && npm run clean && npm run build:es && npm run build:umd",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
-    "build:cjs": "rimraf cjs && cross-env BABEL_ENV=cjs babel src --out-dir cjs && npm run test",
-    "build:umd": "cross-env BABEL_ENV=es rollup -c && cross-env BABEL_ENV=es NODE_ENV=production rollup -c"
+    "build": "npm run build:cjs && npm run test && npm run build:es && npm run build:umd",
+    "build:es": "rimraf es && cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:cjs": "rimraf cjs && cross-env BABEL_ENV=cjs babel src --out-dir cjs",
+    "build:umd": "rimraf dist && cross-env BABEL_ENV=es rollup -c & cross-env BABEL_ENV=es NODE_ENV=production rollup -c"
   },
   "keywords": [],
   "author": "Geoffrey Dhuyvetters <geoffrey.dhuyvetters@gmail.com>",
