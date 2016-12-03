@@ -1,4 +1,4 @@
-export default sort => {
+export default (sort: string): boolean => {
 
   sort = sort.toLowerCase();
 

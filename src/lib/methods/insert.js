@@ -1,3 +1,5 @@
+// @flow
+
 import pick from '../util/pick';
 
 import fetch from '../fetch';
@@ -9,16 +11,25 @@ import ignoreOptionals from '../parse/ignoreOptionals';
 
 import BodyConversion from '../const/BodyConversion';
 
+type options = {
+  url: string,
+  fields: Array<string>,
+  log: boolean,
+  token: string | Function,
+  conversion: string,
+  indicator: string
+};
+
 export default ({
   url,
   fields = [],
-  token = ``,
+  token,
   log = false,
   conversion = BodyConversion.JSON,
   indicator = `?`
-}) => {
+}: options): Function => {
 
-  return (payload = {}) => {
+  return (payload: Object = {}): Promise<Object> => {
 
     payload = pick(payload, ignoreOptionals(fields, {indicator}));
 
@@ -26,7 +37,7 @@ export default ({
       throw new Error(`payload must contain ${JSON.stringify(fields)}`);
     }
 
-    const params = createParams({
+    const params: Object = createParams({
       method: `POST`,
       token,
       payload,

@@ -1,1 +1,3 @@
-export default obj => Object.keys(obj) === 0;
+// @flow
+
+export default (obj: Object): boolean => Object.keys(obj) === 0;

@@ -1,3 +1,5 @@
+// @flow
+
 import pick from '../util/pick';
 
 import fetch from '../fetch';
@@ -6,14 +8,21 @@ import validateSort from '../validation/validateSort';
 import createQueryString from '../url/createQueryString';
 import createParams from '../params/createParams';
 
+type options = {
+  url: string,
+  fields: Array<string>,
+  token: string | Function,
+  log: boolean
+};
+
 export default ({
   url,
   fields = [],
-  token = ``,
+  token,
   log = false
-} = {}) => {
+}: options = {}): Function => {
 
-  return (query = {}) => {
+  return (query: Object = {}): Promise<Object> => {
 
     query = pick(query, fields);
 
@@ -23,7 +32,9 @@ export default ({
       }
     }
 
-    let pUrl;
+    // todo: check if sort_by field exists
+
+    let pUrl: string;
 
     if (query.id || query._id) {
       const {id, _id} = query;
@@ -32,7 +43,7 @@ export default ({
       pUrl = `${url}${createQueryString(query)}`;
     }
 
-    const params = createParams({token});
+    const params: Object = createParams({token, method: `GET`});
 
     return fetch(pUrl, params, log);
 

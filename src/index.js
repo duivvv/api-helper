@@ -1,4 +1,6 @@
-import get from './lib/methods/get';
+// @flow
+
+import select from './lib/methods/select';
 import insert from './lib/methods/insert';
 import remove from './lib/methods/remove';
 import update from './lib/methods/update';
@@ -7,31 +9,68 @@ import parseFields from './lib/parse/parseFields';
 
 import BodyConversion from './lib/const/BodyConversion';
 
-export default (route, {
+type options = {
+  route: string,
+  token: string | Function,
+  base: string,
+  fields: Array<string>,
+  log: boolean,
+  conversion: string
+};
+
+type result = {
+  remove: Function,
+  update: Function,
+  insert: Function,
+  select: Function
+}
+
+export default ({
+  route,
   token,
   base,
   log = false,
   fields,
-  conversion = BodyConversion.JSON,
-  indicator = `?`
-} = {}) => {
+  conversion = BodyConversion.JSON
+}: options = {}): result => {
 
-  if (!base) throw new Error(`please set a base path (absolute URL)`);
-  if (!route) throw new Error(`please provide a route (cfr. users, feedback,...)`);
+  const indicator: string = `?`;
 
-  fields = parseFields(fields);
+  if (!base) {
+    throw new Error(`base is required (ex. http://localhost:3000)`);
+  }
 
-  const url = `${base}/${route}`;
+  if (!base.startsWith(`http://`) && !base.startsWith(`https://`)) {
+    throw new Error(`base must be an absolute path (ex. http://localhost:3000)`);
+  }
+
+  if (!route) {
+    throw new Error(`route is required (ex. 'users', 'feedback', 'images')`);
+  }
+
+  if (fields === undefined) {
+    throw new Error(`fields is required (ex. ['username', 'email', '?isActive'])`);
+  }
+
+  const fieldsObj: {
+    query: Array<string>,
+    _page: Array<string>,
+    _id: Array<string>,
+    _sort: Array<string>,
+    payload: Array<string>
+  } = parseFields(fields);
+
+  const url: string = `${base}/${route}`;
 
   return {
 
-    get: get({
+    select: select({
       url,
       fields: [
-        ...fields.query,
-        ...fields._page,
-        ...fields._id,
-        ...fields._sort
+        ...fieldsObj.query,
+        ...fieldsObj._page,
+        ...fieldsObj._id,
+        ...fieldsObj._sort
       ],
       token,
       log
@@ -39,7 +78,7 @@ export default (route, {
 
     insert: insert({
       url,
-      fields: fields.payload,
+      fields: fieldsObj.payload,
       token,
       log,
       conversion,
@@ -54,7 +93,7 @@ export default (route, {
 
     update: update({
       url,
-      fields: fields.payload,
+      fields: fieldsObj.payload,
       token,
       log,
       conversion,

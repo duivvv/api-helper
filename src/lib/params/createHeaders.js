@@ -1,6 +1,8 @@
-export default token => {
+// @flow
 
-  const headers = new Headers();
+export default (token?: string | () => string): Headers => {
+
+  const headers: Headers = new Headers();
   headers.append(`Content-Type`, `application/json`);
 
   if (token) {

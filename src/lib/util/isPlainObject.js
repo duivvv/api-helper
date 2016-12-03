@@ -1,1 +1,3 @@
-export default obj => (typeof obj === `object` && !Array.isArray(obj) && obj !== null);
+// @flow
+
+export default (obj: Object): boolean => (typeof obj === `object` && !Array.isArray(obj) && obj !== null);

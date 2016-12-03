@@ -1,8 +1,12 @@
+// @flow
+
 import BodyConversion from '../const/BodyConversion';
 
-export default (payload, {
+type result = FormData | string;
+
+export default (payload: Object, {
   conversion = BodyConversion.JSON
-} = {}) => {
+}: {conversion?: string} = {}): result => {
 
   if (conversion === BodyConversion.JSON) {
     return JSON.stringify(payload);
@@ -11,5 +15,7 @@ export default (payload, {
     for (const prop in payload) fd.append(prop, payload[prop]);
     return fd;
   }
+
+  return ``;
 
 };

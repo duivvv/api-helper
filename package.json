@@ -1,40 +1,48 @@
 {
   "name": "api-helper",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.0-beta.0",
+  "description": "🛠 Opinionated universal json api helper",
   "main": "cjs/index.js",
   "browser": "dist/apiHelper.js",
   "module": "es/index.js",
   "jsxnext:main": "es/index.js",
-  "watch": {
-    "hook": {
-      "patterns": [
-        "src",
-        "__tests__"
-      ],
-      "extensions": "js",
-      "quiet": true
-    }
-  },
   "files": [
     "dist",
     "cjs",
     "es",
     "src"
   ],
+  "watch": {
+    "lint:build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js",
+      "quiet": true,
+      "inherit": true
+    }
+  },
   "pre-commit": [
-    "hook"
+    "lint:build:test"
   ],
   "pre-push": [
-    "hook"
+    "lint:build:test"
   ],
   "scripts": {
-    "hook": "npm run lint && npm run build:cjs && npm run test",
-    "lint": "eslint src/*.js",
-    "test": "jest --coverage",
-    "prepublish": "npm run lint && npm run build",
-    "development": "npm-watch",
-    "build": "npm run build:cjs && npm run test && npm run build:es && npm run build:umd",
+    "pre-commit": "npm run lint:build:test",
+    "pre-push": "npm run lint:build:test",
+    "prepublish": "npm run build",
+    "release": "release-it",
+    "lint": "npm run lint:eslint && npm run lint:flow",
+    "lint:eslint": "eslint src/*.js",
+    "lint:flow": "flow --color always",
+    "lint:build": "npm run lint && npm run build:cjs -s",
+    "lint:build:test": "npm run lint:build && npm run test:coverage",
+    "test": "clear && jest",
+    "test:watch": "clear && jest --watch",
+    "test:coverage": "jest --coverage ",
+    "build": "clear && npm run lint:build:test && npm run build:es && npm run build:umd",
+    "build:watch": "clear && npm-watch",
     "build:es": "rimraf es && cross-env BABEL_ENV=es babel src --out-dir es",
     "build:cjs": "rimraf cjs && cross-env BABEL_ENV=cjs babel src --out-dir cjs",
     "build:umd": "rimraf dist && cross-env BABEL_ENV=es rollup -c & cross-env BABEL_ENV=es NODE_ENV=production rollup -c"
@@ -46,6 +54,7 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "babel-preset-es2015": "^6.16.0",
     "cross-env": "^3.1.3",
     "eslint": "^3.7.1",
@@ -55,6 +64,7 @@
     "npm-watch": "^0.1.6",
     "pre-commit": "^1.1.3",
     "pre-push": "^0.1.1",
+    "release-it": "^2.5.1",
     "rimraf": "^2.5.4",
     "rollup": "^0.36.1",
     "rollup-plugin-babel": "^2.6.1",

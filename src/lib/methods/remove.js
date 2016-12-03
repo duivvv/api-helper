@@ -1,22 +1,30 @@
+// @flow
+
 import fetch from '../fetch';
 
 import createParams from '../params/createParams';
 
+type options = {
+  url: string,
+  token: string | () => string,
+  log: boolean
+};
+
 export default ({
   url,
-  token = ``,
+  token,
   log = false
-} = {}) => {
+}: options = {}): Function => {
 
-  return (id, {hard = false} = {}) => {
+  return (id: number, {hard = false}: {hard: boolean} = {}): Promise<Object> => {
 
     if (!id) throw new Error(`please provide an id`);
 
-    const pUrl = `${url}/${id}`;
+    const pUrl: string = `${url}/${id}`;
 
-    const payload = hard ? {hard: true} : {};
+    const payload: Object = hard ? {hard: true} : {};
 
-    const params = createParams({
+    const params: Object = createParams({
       method: `DELETE`,
       token,
       payload

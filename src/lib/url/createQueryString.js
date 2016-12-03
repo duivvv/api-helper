@@ -1,13 +1,15 @@
-export default (query = {}) => {
+// @flow
 
-  const nProps = Object.keys(query).length;
+export default (query: Object = {}): string => {
+
+  const nProps: number = Object.keys(query).length;
   if (nProps === 0) return ``;
 
-  let url = `?`;
-  let i = 1;
+  let url: string = `?`;
+  let i: number = 1;
 
-  for (const prop in query) {
-    const val = query[prop];
+  for (const prop: string in query) {
+    const val: string = query[prop];
     url += `${prop}=${val}`;
     if (i < nProps) url += `&`;
     i ++;

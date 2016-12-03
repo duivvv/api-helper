@@ -1,1 +1,3 @@
-export default (...args) => console.log(...args);
+// @flow
+
+export default (...args: Array<string>): void => console.log(...args);
