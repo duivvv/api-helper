@@ -1,6 +1,6 @@
 es
 cjs
 dist
-coverage
 node_modules
-*.log*
+coverage
+*.log

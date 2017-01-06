@@ -1,6 +1,3 @@
 {
-  "extends": "devine",
-  "rules": {
-    "arrow-parens": ["error", "always"]
-  }
+  "extends": "devine"
 }
