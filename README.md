@@ -81,7 +81,7 @@ All responses are parsed as json, all errors are catched and parsed as json
 
 users.get()
   .then(d => console.log(d))
-  
+
 ```
 
 > GET / http://localhost:3000/api/users?username=duivvv&isActive=true
@@ -159,7 +159,7 @@ pass the `id` or `_id` of the entity you want to remove
 
 ```js
 
-users.remove(507f1f77bcf86cd799439011)
+users.remove('507f1f77bcf86cd799439011')
   .then(d => console.log(d))
 
 ```
@@ -170,7 +170,7 @@ posibility to add an optional `{hard: true}` and catch it in your request body
 
 ```js
 
-users.remove(507f1f77bcf86cd799439011, {hard: true})
+users.remove('507f1f77bcf86cd799439011', {hard: true})
   .then(d => console.log(d))
 
 ```
